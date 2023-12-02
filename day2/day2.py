@@ -29,12 +29,10 @@ def part1(lines):
             if color in hands:
                 for i,match in enumerate(hands):
                     if color == match:
-                        colors_vals[color] += int(hands[i-1]) # this is the count at the end of the line
-        
-            if (colors_vals[color] > max_vals[color]):
-                good_game = False
-                break                   # if any are over, I don't care about the others
-        print("line:",line_num+1," vals: ",colors_vals)
+                        this_color_num = int(hands[i-1])
+                        if (this_color_num > max_vals[color]):
+                            good_game = False
+                            break           # if any are over, I don't care about the others
         
         if good_game:
             print(line_num+1)
