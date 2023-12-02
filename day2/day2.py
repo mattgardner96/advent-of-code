@@ -35,13 +35,13 @@ def part1(lines):
                             break           # if any are over, I don't care about the others
         
         if good_game:
-            print(line_num+1)
+            # print(line_num+1)
             total_sum_line_nums += (line_num+1)
 
     return(total_sum_line_nums)
 
 def part2(lines):
-    print('part1')
+    print('part2')
 
     power_sum = 0
 
@@ -62,7 +62,7 @@ def part2(lines):
                     if color == match:
                         colors_vals[color] =  max(colors_vals[color],int(hands[i-1])) # this *should* contain the max of each color
             power *= colors_vals[color]
-        print("colors_vals:",colors_vals,"power",power)
+        # print("colors_vals:",colors_vals,"power",power)
 
         power_sum += power
 
@@ -72,7 +72,7 @@ def part2(lines):
 
 
 if __name__ == "__main__":
-    # print(part1(lines))
+    print(part1(lines))
 
     print(part2(lines))
 
