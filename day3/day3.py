@@ -4,7 +4,7 @@ from re import finditer
 os.chdir("/Users/mattgardner/Documents/advent-of-code/day3")
 
 # read in the input
-lines = open("test.txt","r").readlines()
+lines = open("input.txt","r").readlines()
 
 # create a list to store numbers and positions
 nums_array = list()
