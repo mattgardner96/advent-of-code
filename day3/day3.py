@@ -7,7 +7,11 @@ os.chdir("/Users/mattgardner/Documents/advent-of-code/day3")
 lines = open("input.txt","r").readlines()
 
 # create a list to store numbers and positions
-nums_array = list()
+nums_array = list() # usage: line number, number itself, start & end+1 locations, and is_part status
+
+stars = set() # if the value we detect is a star, 
+
+count = 0
 
 def part1():
     find_numbers(lines,nums_array)
@@ -46,22 +50,26 @@ def find_parts(lines,nums_array):
     return total_sum
 
 def traverse(first_row,last_row,first_col,last_col) -> bool:
-    for row in lines[first_row:last_row+1]:
-        for char in row[first_col:last_col+1]:
+    result = False
+    global count
+
+    for r,row in enumerate(lines[first_row:last_row+1]):
+        for c,char in enumerate(row[first_col:last_col+1]):
             if char not in '\n.0123456789': 
-                return(True) # found a real symbol in the zone we're checking, literally just end the search and return
-    return False
+                result = True # found a real symbol in the zone we're checking, but also looking for stars...
+                if char == "*":
+                    stars.add((first_row+r,first_col+c))
+
+    return result
 
 def part2():
+    print(stars)
     pass
     # if any two numbers have an adjacent star, we have to multiply the numbers.
-
-    # amend part 1 to log where all the adjacent stars are
-    # keep the star's location in a separate list including the index of the numbers in num
-    # if two parts have a star in the same location, then we know it's a 
-    # find the stars
-    # count the numbers that surround a star
+    # when we do part 1, log the row,col of any star and the 
+    # for that star, add the 
 
 if __name__ == "__main__":
-    part1()
-    part2()
+    print("part1",part1())
+    print(part2())
+    # part2()
