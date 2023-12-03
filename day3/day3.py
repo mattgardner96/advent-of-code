@@ -26,61 +26,55 @@ def pn_checker(lines,nums_array):
     
     # check adjacent characters surrounding the number (do this first on same line, then above, then below)
     for num in nums_array:
+        # some shortcuts
         line_number = num[0]
         curr_line = lines[line_number]
-        start_char_num = num[2][0]-1
+        start_char_num = num[2][0]
         end_char_num = num[2][1]
 
         # check same line; if it's on the end of the line, assume char before or after is a period and we don't care about it
-        before_char = curr_line[start_char_num] if num[2][0] >= 1 else '.'; # print("number",num[1],"before_char",before_char)
+        before_char = curr_line[start_char_num-1] if num[2][0] >= 1 else '.'; # print("number",num[1],"before_char",before_char)
         after_char = curr_line[end_char_num] if end_char_num < len(curr_line) else '.';  # print("number",num[1],"after_char",after_char)
         if before_char != '.' or after_char != '.':
             num[3] = True # set is_pn True
 
         # check above line
         if line_number > 0:
-            checkstring_top = '0'
-            if start_char_num > 0 and end_char_num < len(lines[line_number-1])-1:     # middle of a line
-                checkstring_top = (lines[line_number-1][start_char_num:end_char_num+1])
-            if start_char_num == 0 and end_char_num < len(lines[line_number-1])-1:    # start of a line
-                checkstring_top = (lines[line_number-1][start_char_num+1:end_char_num+1])
-            if start_char_num > 0 and end_char_num == len(lines[line_number-1])-1:    # end of a line
-                checkstring_top = (lines[line_number-1][start_char_num:end_char_num])
-                print(checkstring_top)                                                # NEVER EXECUTES
+            checkstring_top = '.'
+            if start_char_num == 0:
+                checkstring_top = lines[line_number-1][start_char_num:end_char_num+1]
+            elif end_char_num == len(lines[line_number-1]):
+                checkstring_top = lines[line_number-1][start_char_num-1:end_char_num-1]
+            else:
+                checkstring_top = lines[line_number-1][start_char_num-1:end_char_num+1]
             
             # return True if checkstring contains something other than a period or a number
             if any(char not in '.0123456789' for char in checkstring_top):
                 num[3] = True
 
-
         # check below line
         if line_number < len(lines)-1:
-            checkstring_bottom = '0'
-            if start_char_num > 0 and end_char_num < len(lines[line_number+1])-1:     # middle of a line
-                checkstring_bottom = (lines[line_number+1][start_char_num:end_char_num+1])
-            if start_char_num == 0 and end_char_num < len(lines[line_number+1])-1:    # start of a line
-                checkstring_bottom = (lines[line_number+1][start_char_num+1:end_char_num+1])
-            if start_char_num > 0 and end_char_num == len(lines[line_number+1])-1:    # end of a line
-                checkstring_bottom = (lines[line_number+1][start_char_num:end_char_num])
-                print(num[1])
-                print(checkstring_bottom)                                             # NEVER EXECUTES
+            checkstring_bottom = '.'
+            if start_char_num == 0:
+                checkstring_bottom = lines[line_number+1][start_char_num:end_char_num+1]
+            elif end_char_num == len(lines[line_number+1]):
+                checkstring_bottom = lines[line_number+1][start_char_num-1:end_char_num-1]
+            else:
+                checkstring_bottom = lines[line_number+1][start_char_num-1:end_char_num+1]
+            
             # return True if checkstring contains something other than a period or a number
             if any(char not in '.0123456789' for char in checkstring_bottom):
-                print(char not in '.0123456789' for char in checkstring_bottom)
                 num[3] = True
 
-        if num[3] == True:
-            sum_parts += int(num[1])
 
-        if num[2][1] == len(curr_line)-1:
-            pass
-            # print(num[0]+1,num[1],"is_pn",num[3],sep='\t')
+        if num[3] == True: sum_parts += int(num[1])
+
 
     return sum_parts
 
 
-
-
 if __name__ == "__main__":
     print(part1())
-    # print(nums_array) print("line",nums_array[-1][0],"number",nums_array[-1][1],"start+end",nums_array[-1][2],"is_pn",nums_array[-1][3])   # DEBUG
+    for num in nums_array:
+        print(num)
+    # print("line",nums_array[-1][0],"number",nums_array[-1][1],"start+end",nums_array[-1][2],"is_pn",nums_array[-1][3])   # DEBUG
