@@ -4,14 +4,14 @@ from re import finditer
 os.chdir("/Users/mattgardner/Documents/advent-of-code/day3")
 
 # read in the input
-lines = open("test.txt","r").readlines()
+lines = open("input.txt","r").readlines()
 
 # create a list to store numbers and positions
 nums_array = list()
 
 def part1():
     find_numbers(lines,nums_array)
-    find_parts(lines,nums_array)
+    return find_parts(lines,nums_array)
     # return pn_checker(lines,nums_array)
 
 # find every number's position in the matrix
@@ -23,6 +23,8 @@ def find_numbers(lines,nums_array):
         n[2][1] = n[2][1]-1 # make the end of the span the actual end of the number
 
 def find_parts(lines,nums_array):
+    total_sum = 0
+
     for n in nums_array:
 
         thislinenum = n[0]
@@ -38,70 +40,28 @@ def find_parts(lines,nums_array):
         # print(n[1],first_row,last_row,first_col,last_col)
 
         n[3] = traverse(first_row,last_row,first_col,last_col)
-        print(n[1],n[3])
+
+        if n[3] == True: total_sum += int(n[1])
+
+    return total_sum
 
 def traverse(first_row,last_row,first_col,last_col) -> bool:
     for row in lines[first_row:last_row+1]:
         for char in row[first_col:last_col+1]:
             if char not in '\n.0123456789': 
                 return(True) # found a real symbol in the zone we're checking, literally just end the search and return
-    # print("fell through! false")
     return False
+
+def part2():
+    pass
+    # if any two numbers have an adjacent star, we have to multiply the numbers.
+
+    # amend part 1 to log where all the adjacent stars are
+    # keep the star's location in a separate list including the index of the numbers in num
+    # if two parts have a star in the same location, then we know it's a 
+    # find the stars
+    # count the numbers that surround a star
 
 if __name__ == "__main__":
     part1()
-
-    # print("line",nums_array[-1][0],"number",nums_array[-1][1],"start+end",nums_array[-1][2],"is_pn",nums_array[-1][3])   # DEBUG
-
-''' def pn_checker(lines,nums_array):
-    pass
-
-    sum_parts = 0;
-    
-    # check adjacent characters surrounding the number (do this first on same line, then above, then below)
-    for num in nums_array:
-        # some shortcuts
-        line_number = num[0]
-        curr_line = lines[line_number]
-        start_char_num = num[2][0]
-        end_char_num = num[2][1]
-
-        # check same line; if it's on the end of the line, assume char before or after is a period and we don't care about it
-        before_char = curr_line[start_char_num-1] if num[2][0] >= 1 else '.'; # print("number",num[1],"before_char",before_char)
-        after_char = curr_line[end_char_num] if end_char_num < len(curr_line) else '.';  # print("number",num[1],"after_char",after_char)
-        if before_char != '.' or after_char != '.':
-            num[3] = True # set is_pn True
-
-        # check above line
-        if line_number > 0:
-            checkstring_top = '.'
-            if start_char_num == 0:
-                checkstring_top = lines[line_number-1][start_char_num:end_char_num+1]
-            elif end_char_num == len(lines[line_number-1]):
-                checkstring_top = lines[line_number-1][start_char_num-1:end_char_num-1]
-            else:
-                checkstring_top = lines[line_number-1][start_char_num-1:end_char_num+1]
-            
-            # return True if checkstring contains something other than a period or a number
-            if any(char not in '.0123456789' for char in checkstring_top):
-                num[3] = True
-
-        # check below line
-        if line_number < len(lines)-1:
-            checkstring_bottom = '.'
-            if start_char_num == 0:
-                checkstring_bottom = lines[line_number+1][start_char_num:end_char_num+1]
-            elif end_char_num == len(lines[line_number+1]):
-                checkstring_bottom = lines[line_number+1][start_char_num-1:end_char_num-1]
-            else:
-                checkstring_bottom = lines[line_number+1][start_char_num-1:end_char_num+1]
-            
-            # return True if checkstring contains something other than a period or a number
-            if any(char not in '.0123456789' for char in checkstring_bottom):
-                num[3] = True
-
-
-        if num[3] == True: sum_parts += int(num[1])
-
-
-    return sum_parts '''
+    part2()
