@@ -4,7 +4,7 @@ from re import finditer
 os.chdir("/Users/mattgardner/Documents/advent-of-code/day3")
 
 # read in the input
-lines = open("input.txt","r").readlines()
+lines = open("test.txt","r").readlines()
 
 # create a list to store numbers and positions
 nums_array = list()
@@ -75,6 +75,5 @@ def pn_checker(lines,nums_array):
 
 if __name__ == "__main__":
     print(part1())
-    for num in nums_array:
-        print(num)
+
     # print("line",nums_array[-1][0],"number",nums_array[-1][1],"start+end",nums_array[-1][2],"is_pn",nums_array[-1][3])   # DEBUG
