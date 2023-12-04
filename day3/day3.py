@@ -65,10 +65,15 @@ def traverse(first_row,last_row,first_col,last_col,i) -> bool:
     return result
 
 def part2():
-    # for k,v in gears.items():
-    #     print(k,v)
+    gear_ratio_sum = 0;
 
-    
+    for k,v in gears.items():
+        if len(v) == 2:
+            # now we've got a real gear
+            gear_ratio = v[0]*v[1]
+            gear_ratio_sum += gear_ratio
+
+    return(gear_ratio_sum)
 
 
     pass
@@ -77,6 +82,6 @@ def part2():
     # for that star, add the 
 
 if __name__ == "__main__":
-    print("part1 solution",part1())
+    part1()
     print(part2())
     # part2()
