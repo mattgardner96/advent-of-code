@@ -5,9 +5,9 @@ from collections import Counter
 os.chdir("/Users/mattgardner/Documents/advent-of-code/day4")
 
 # read in the input
-lines = open("input.txt","r").readlines()
+lines = open("test.txt","r").readlines()
 
-cards = list() # usage: card number, list of winning numbers, list of your numbers, matches_count
+cards = list() # usage: card number, list of winning numbers, list of your numbers, number of matches per card
 
 total_sum = 0
 
@@ -47,12 +47,30 @@ def part1(lines,cards):
     return(total_sum)
 
 def part2(cards):
-    pass
-    cards_augmented = cards
+    big = list()
+    index = 0
+    length = 1 # should be 1 to start with
+    big = cards # all the originals are there
+    
+    while index < length: # index is the index in the list we're actively building
+
+        # just add the copies
+        current_card = big[index]
+
+        for i in range(0,current_card[3]):
+            big.append(cards[int(current_card[0])+i])
+
+        length = len(big)
+        index += 1
+
+    for c in big:
+        print(c)
+
+    print(len(big))
 
 
 
 if __name__ == "__main__":
-    print("part1",part1(lines,cards))
-    # print("part2",part2())
+    part1(lines,cards)
+    print("part2",part2(cards))
 
