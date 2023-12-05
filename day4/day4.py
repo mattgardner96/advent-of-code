@@ -5,7 +5,7 @@ from collections import Counter
 os.chdir("/Users/mattgardner/Documents/advent-of-code/day4")
 
 # read in the input
-lines = open("test.txt","r").readlines()
+lines = open("input.txt","r").readlines()
 
 cards = list() # usage: card number, list of winning numbers, list of your numbers, number of matches per card
 
@@ -63,12 +63,10 @@ def part2(cards):
         length = len(big)
         index += 1
 
-    for c in big:
-        print(c)
+    # for c in big:
+    #     print(c)
 
-    print(len(big))
-
-
+    return(len(big))
 
 if __name__ == "__main__":
     part1(lines,cards)
